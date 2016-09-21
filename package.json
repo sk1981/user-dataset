@@ -1,0 +1,45 @@
+{
+  "name": "user-dataset",
+  "version": "1.0.0",
+  "description": "A simple SPA to manage a user data set",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "node ./node_modules/webpack/bin/webpack.js  --config=webpack.build.js",
+    "watch": "node ./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --inline --d --config=webpack.build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sk1981/user-dataset.git"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/sk1981/user-dataset/issues"
+  },
+  "homepage": "https://github.com/sk1981/user-dataset#readme",
+  "dependencies": {
+    "localforage": "^1.4.2",
+    "react": "^15.3.1",
+    "react-dom": "^15.3.1",
+    "react-redux": "^4.4.5",
+    "redux": "^3.5.2"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.4.0",
+    "babel-core": "^6.14.0",
+    "babel-loader": "^6.2.5",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.11.1",
+    "css-loader": "^0.24.0",
+    "eslint": "^3.4.0",
+    "eslint-loader": "^1.5.0",
+    "eslint-plugin-react": "^6.2.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "node-sass": "^3.8.0",
+    "sass-loader": "^4.0.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.15.0"
+  }
+}
