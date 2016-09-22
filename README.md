@@ -16,9 +16,14 @@ A simple application to manage a user's data set. It enables us to :-
 
 #### Data Flow
 * Choice between Flux implementation (Redux) or pure React parent child communication
+* As the problem is simple, not using flux to avoid extra indirection
+* More reading on this : https://medium.com/@dan_abramov/you-might-not-need-redux-be46360cf367
 
 #### GRID
-* Use library or roll own
+* Choice was between using a grid library or providing a custom implementation.
+* Most grids were quite heavy and provided lots of different functionality
+ which was not required for our simple case.
+* To keep things simple and keep page size under limit, I decided to write a simple implementation.
 
 #### Module Bundler
 * Choice between webpack, browserify or rollup
@@ -32,3 +37,4 @@ and is going to be present in webpack 2.0
 ## Design
 
 ## Future Enhancements
+* Integrate with error and analytics service

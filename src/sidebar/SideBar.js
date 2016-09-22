@@ -1,6 +1,6 @@
 import React from 'react';
 import UserDataService from '../user/data/UserDataManager';
-
+require('../../style/03-Components/_sidebar.scss');
 /**
  * Gets the list for trait count
  *
@@ -21,7 +21,8 @@ function getTraitCountData(users) {
 const SideBar = function (props) {
   return (
     <div className="sidebar">
-      <h2>Total Person: {props.users.length}</h2>
+      <h2>Side Bar</h2>
+      <h3>Total Person: {props.users.length}</h3>
       {getTraitCountData(props.users)}
     </div>
   );

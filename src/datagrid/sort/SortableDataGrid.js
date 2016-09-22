@@ -2,20 +2,21 @@ import React from 'react';
 import DataGrid from '../DataGrid';
 import SortService from './SortService';
 
-//TODO : change to class
 /**
  * Higher order component which enables sorting functionality within the grid
  * 
  * @type {*|Function}
  */
-const SortableDataGrid = React.createClass({
+class SortableDataGrid extends React.Component {
 
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+    this.state = {
       sortField: undefined,
       sortDirection: undefined
-    }
-  },
+    };
+    this.handleSortChange = this.handleSortChange.bind(this);
+  }
 
   /**
    * Handles change in sort data
@@ -25,18 +26,25 @@ const SortableDataGrid = React.createClass({
   handleSortChange(sortField) {
     const sortDirection = SortService.getSortDirection(sortField, this.state.sortField, this.state.sortDirection);
     this.setState({sortDirection, sortField});
-  },
+  }
 
   render() {
     const {sortField, sortDirection} = this.state;
     const items = sortDirection !== undefined ?
-      SortService.sortItems([...this.props.items], sortField, sortDirection):
-      this.props.items;
+                  SortService.sortItems([...this.props.items], sortField, sortDirection):
+                  this.props.items;
 
+    const sortIndicator = SortService.getSortIndicator(sortDirection);
     return (
-      <DataGrid {...this.props} items={items} sortField={sortField} sortDirection={sortDirection} handleSortChange={this.handleSortChange}/>
+      <DataGrid {...this.props}
+        sortIndicator={sortIndicator}
+        items={items}
+        sortField={sortField}
+        sortDirection={sortDirection}
+        handleSortChange={this.handleSortChange}
+      />
     );
   }
-});
+}
 
 export default SortableDataGrid;

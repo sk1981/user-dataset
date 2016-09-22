@@ -56,9 +56,9 @@ export default {
    */
   getTraits() {
     return [
-      {type: 'power', check: 'isSuper', display: 'Super Power'},
-      {type: 'rich', check: 'isRich', display: 'Rich'},
-      {type: 'genius', check: 'isGenius', display: 'Genius'}
+      {type: 'superPower', display: 'Super Power'},
+      {type: 'rich', display: 'Rich'},
+      {type: 'genius', display: 'Genius'}
     ];
   },
 
@@ -74,7 +74,7 @@ export default {
     const traitList = this.getTraits();
     users.forEach(user => {
       traitList.forEach(trait => {
-        if(user[trait.check]) {
+        if(user[trait.type]) {
           traitCountMap[trait.type] = (traitCountMap[trait.type] || 0) + 1;
         }
       });

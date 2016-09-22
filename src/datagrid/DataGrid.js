@@ -1,25 +1,16 @@
 import React from 'react';
 import DataRow from './DataRow';
 import DataGridFooter from './DataGridFooter';
-import UserDataManager from '../user/data/UserDataManager'
-import "../../style/02-Components/grid/_grid.scss";
+import DataGridHeader from './DataGridHeader';
+import "../../style/03-Components/grid/_grid.scss";
 
 class DataGrid extends React.Component {
 
-  // TODO : move to sort service
-  /**
-   *
-   * @param props
-   * @returns {*}
-   */
-  static getSortIndicator(props) {
-    const {sortDirection} = props;
-    return sortDirection ? <span className={`sort-indicator`}>{sortDirection === 'asc'? '▲': '▼'}</span>: undefined;
-  }
-
   constructor(props) {
     super(props);
+    this.state = {clickedDeleteCell: -1};
     this.handleHeaderClick = this.handleHeaderClick.bind(this);
+    this.handleDocumentClicks = this.handleDocumentClicks.bind(this);
   }
 
   /**
@@ -32,58 +23,75 @@ class DataGrid extends React.Component {
   }
 
   /**
-   * Gets the header for name fields
+   * Event to listens to clicks on the document.
    *
-   * @param sortField
-   * @param sortIndicator
-   * @returns {XML}
+   * We use this event to close the delete prompt.
+   *
+   * Instead of attaching click events on each cell we will attach to the top grid element and
+   * propagate the details down
+   *
+   * @param clickEvent
    */
-  getNameHeader(sortField, sortIndicator) {
-    const fieldName = "name";
-    return (
-      <td  data-name={fieldName}
-           onClick={this.handleHeaderClick}
-           className="grid__header-cell" >
-        Name {fieldName === sortField ? sortIndicator: ''}
-      </td>
-    )
+  handleDocumentClicks(clickEvent) {
+    const target = clickEvent.target;
+    let clickedDeleteCell = -1;
+    this.props.items.forEach((item) => {
+      const childRow = this[`row-${item.id}`];
+      const deleteCell = childRow.deleteCell;
+      // As long as click is not inside, cancel the delete confirmation
+      if(!deleteCell.contains(target)) {
+        // Not ideal that we are calling properties/methods on children,
+        // but definitely the cleanest approach
+        childRow.handleDeleteCancellation();
+      }
+    });
+    if(clickedDeleteCell !== -1) {
+      this.setState({clickedDeleteCell});
+    }
   }
 
   /**
-   * Gets the trait header data
+   * Gets the gird rows by iterating over the list of items
    *
-   * @param sortField
-   * @param sortIndicator
+   * @param items
    * @returns {*}
    */
-  getTraitHeader(sortField, sortIndicator) {
-    return UserDataManager.getTraits().map(trait => {
-      return (<td className="grid__header-cell grid__header-cell--trait"
-                  key={trait.check}
-                  onClick={this.handleHeaderClick}
-                  data-name={trait.check}>
-        {trait.display} {trait.check === sortField ? sortIndicator: ''}
-      </td>);
+  getGridRows(items) {
+    return items.map((item) => {
+      // // We should dismiss the delete confirmation if click is outside
+      // const dismissCancel = this.state.clickedDeleteCell !== item.id;
+      return (
+        <DataRow ref={(ref) => this[`row-${item.id}`] = ref }
+                 updateItem={this.props.updateItem}
+                 deleteItem={this.props.deleteItem}
+                 key={item.id}
+                 item={item}
+        />
+      );
     });
   }
 
+  componentDidMount() {
+    document.addEventListener('click', this.handleDocumentClicks);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleDocumentClicks);
+  }
+
   render() {
-    const sortIndicator = DataGrid.getSortIndicator(this.props);
+    const {sortField, sortIndicator, filterTrait, items} = this.props;
+    const finalItems = filterTrait ? items.filter((item) => item[filterTrait] === true): items;
+
     return (
       <div>
         <table className="grid">
-          <thead>
-          <tr className="grid__header">
-            {this.getNameHeader(this.props.sortField, sortIndicator)}
-            {this.getTraitHeader(this.props.sortField, sortIndicator)}
-            <td className="grid__header-cell grid__header-cell--trait">Delete</td>
-          </tr>
-          </thead>
+          <DataGridHeader handleHeaderClick={this.handleHeaderClick} sortField={sortField} sortIndicator={sortIndicator}/>
           <tbody>
-          {this.props.items.map((item) => <DataRow updateItem={this.props.updateItem} deleteItem={this.props.deleteItem} key={item.id} item={item}/>)}
+          {this.getGridRows(finalItems)}
           </tbody>
         </table>
-        <DataGridFooter/>
+        <DataGridFooter filterTrait={filterTrait}/>
       </div>
     );
   }

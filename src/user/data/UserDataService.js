@@ -1,7 +1,9 @@
 const localForage = require("localforage/dist/localforage");
 import UserDataManager from './UserDataManager';
-// TODO : Add error handling
 
+/**
+ * Service for managing user interactions with local storage
+ */
 export default {
 
   /**

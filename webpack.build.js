@@ -13,6 +13,7 @@ module.exports = {
     filename: '[name].js'
   },
   module: {
+    noParse: /[\/\\]node_modules[\/\\]localforage[\/\\]dist[\/\\]localforage\.js$/,
     preLoaders: [
       { test: /\.js$/, loader: 'eslint', exclude: /node_modules/ }
     ],
@@ -41,12 +42,10 @@ module.exports = {
     configFile: '.eslintrc'
   },
   plugins: [
-    new ExtractTextPlugin("[name].css")
-    // ,
-    // new StyleLintPlugin({
-    //   failOnError: false,
-    //   syntax: 'scss'
-    // })
+    new ExtractTextPlugin("[name].css"),
+    new webpack.ProvidePlugin({
+      localforage: 'localforage'
+    })
   ]
 };
 

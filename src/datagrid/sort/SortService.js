@@ -1,10 +1,20 @@
+import React from 'react';
 const ASCENDING_SORT = 'asc';
 const DESCENDING_SORT = 'desc';
 
+/**
+ * Functions related to sorting
+ */
 export default {
 
 
   /**
+   * Figures out new sort direction based on previous
+   *
+   * It's a state transition:-
+   * None => Asc => Desc => None
+   * As a state machine code would be too complex, we
+   * are just using simple if checks
    *
    * @param sortField
    * @param previousSortField
@@ -28,7 +38,9 @@ export default {
   },
 
   /**
-   * 
+   *
+   * Sorts item based on the provided direction
+   *
    * @param items
    * @param field
    * @param sortDirection
@@ -36,9 +48,20 @@ export default {
    */
   sortItems(items, field, sortDirection) {
     items.sort(function(itemA, itemB) {
-      //TODO : Simplify, handle undefined
-      return sortDirection === DESCENDING_SORT ? itemA[field] > itemB[field]: itemA[field] < itemB[field];
+      const isFirstBigger = itemA[field] > itemB[field];
+      return sortDirection === DESCENDING_SORT ? !isFirstBigger: isFirstBigger;
     });
     return items;
-  }
+  },
+
+  /**
+   * Generates the sort indicat
+   * @param sortDirection
+   * @returns {*}
+   */
+  getSortIndicator(sortDirection) {
+  return sortDirection ? <span className={`sort-indicator`}>{sortDirection === 'asc'? '▲': '▼'}</span>: undefined;
+}
+
+
 }

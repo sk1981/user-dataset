@@ -1,5 +1,5 @@
 import React from 'react';
-import "../../style/02-Components/user/_add-user.scss";
+import "../../style/03-Components/user/_add-user.scss";
 
 // import UserDataManager from './data/UserDataManager'
 
@@ -9,16 +9,22 @@ class AddUserPanel extends React.Component {
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
-  //TODO : clear existing data on reset
-  // TODO : Add error is name is empty
+  reset() {
+    this.personName.value = '';
+    this.superTrait.checked = false;
+    this.geniusTrait.checked = false;
+    this.richTrait.checked = false;
+  }
+
   handleButtonClick(event) {
     const person = {
       name: this.personName.value,
-      isSuper: this.superTrait.checked,
-      isGenius: this.geniusTrait.checked,
-      isRich: this.richTrait.checked
+      superPower: this.superTrait.checked,
+      genius: this.geniusTrait.checked,
+      rich: this.richTrait.checked
     };
     this.props.updateUserList(person);
+    this.reset();
     event.preventDefault();
   }
 
