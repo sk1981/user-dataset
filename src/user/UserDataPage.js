@@ -1,50 +1,65 @@
 import React from 'react';
-import AddUserPanel from './AddUserPanel'
-import SortService from './service/SortService'
+import AddUserPanel from './AddUserPanel';
+import SortableDataGrid from '../datagrid/sort/SortableDataGrid';
+import SideBar from '../sidebar/SideBar';
 
-import DataGrid from '../datagrid/DataGrid'
+import UserDataService from './data/UserDataService';
+
 
 const LoginForm = React.createClass({
 
   getInitialState() {
     return {
-      users: [],
-      sortField: undefined,
-      sortDirection: undefined
+      users: []
     };
   },
 
+  /**
+   * Deletes the user
+   * 
+   * @param userId
+   */
   deleteUser(userId) {
-    console.log(userId);
-    const users = this.state.users.reduce((previous, user) => {
-      if(user.id !== userId) {
-        previous.push(user)
-      }
-      return previous;
-    }, []);
-    console.log(users);
-    this.setState({users})
+    UserDataService.deleteUser(userId).then((users)=> {
+      this.setState({users})
+    });
   },
 
-  sortUsers(sortField) {
-    const sortDirection = SortService.getSortDirection(sortField, this.state.sortField, this.state.sortDirection);
-    const users = SortService.sortUsers(this.state.users, sortField, sortDirection);
-    this.setState({users, sortDirection, sortField});
-  },
-
+  /**
+   * Updates the list of user by adding a new user
+   * @param newUser
+   */
   updateUserList(newUser) {
-    console.log(newUser);
-    // Based on deletion etc, id may not be unique, so ideally we should get max key and then increment
-    newUser.id = this.state.users.length;
-    this.state.users.push(newUser);
-    this.setState({users: this.state.users});
+    UserDataService.addUser(newUser).then((users)=> {
+      this.setState({users});
+    });
+  },
+
+  /**
+   * Updates the given trait
+   *
+   * @param userId
+   * @param traitName
+   * @param traitValue
+   */
+  updateUserTrait(userId, traitName, traitValue) {
+    UserDataService.updateUserTrait(userId, traitName, traitValue).then((users)=> {
+      this.setState({users});
+    });
+  },
+
+  componentDidMount() {
+    UserDataService.fetchUsers().then((users) => {
+      this.setState({users});
+    });
   },
 
   render() {
     return (
       <div>
         <AddUserPanel updateUserList={this.updateUserList}/>
-        <DataGrid sortUsers={this.sortUsers} deleteUser={this.deleteUser} users={this.state.users}/>
+        <SortableDataGrid updateItem={this.updateUserTrait} deleteItem={this.deleteUser} items={this.state.users}/>
+        <SideBar users={this.state.users}/>
       </div>
     );
   }

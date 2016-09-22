@@ -1,6 +1,8 @@
 import React from "react";
 import {render} from 'react-dom';
 import UserDataGrid from './user/UserDataPage'
+require('../style/main.scss');
+
 const App = (
   <UserDataGrid/>
 );

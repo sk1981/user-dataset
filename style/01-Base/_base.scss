@@ -1,0 +1,25 @@
+// Provides the base and default styles for our whole application
+
+main {
+  max-width: 1200px;
+  margin: auto;
+  //TODO : Temp, remove with header
+  padding-top: 80px;
+}
+
+body {
+  background-color: #fcfcfc;
+  font-size: 16px;
+  line-height: 1.4;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+input {
+  height: 30px;
+  padding: 5px 3px;
+  border-radius: 2px;
+  border: 1px solid #cccccc;
+}

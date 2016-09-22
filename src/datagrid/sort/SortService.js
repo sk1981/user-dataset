@@ -1,5 +1,5 @@
-const ASCENDING_SORT = 'ASC';
-const DESCENDING_SORT = 'DESC';
+const ASCENDING_SORT = 'asc';
+const DESCENDING_SORT = 'desc';
 
 export default {
 
@@ -29,17 +29,16 @@ export default {
 
   /**
    * 
-   * @param users
+   * @param items
    * @param field
    * @param sortDirection
    * @returns {*}
    */
-  sortUsers(users, field, sortDirection) {
-    console.log(sortDirection === DESCENDING_SORT);
-    users.sort(function(userA, userB) {
+  sortItems(items, field, sortDirection) {
+    items.sort(function(itemA, itemB) {
       //TODO : Simplify, handle undefined
-      return sortDirection === DESCENDING_SORT ? userA[field] > userB[field]: userA[field] < userB[field];
+      return sortDirection === DESCENDING_SORT ? itemA[field] > itemB[field]: itemA[field] < itemB[field];
     });
-    return users;
+    return items;
   }
 }

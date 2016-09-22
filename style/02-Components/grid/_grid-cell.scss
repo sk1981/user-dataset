@@ -1,0 +1,8 @@
+.cell__delete-option {
+  color: #4183C4;
+  @extend .hand-pointer;
+}
+
+.grid__cell--delete {
+  font-size: 14px;
+}

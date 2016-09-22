@@ -1,0 +1,34 @@
+@import "../../02-Global/helper";
+// Provides the base styles for our grid component
+.grid {
+  width: 100%;
+  margin-top: 50px;
+  table-layout: fixed;
+
+  & td {
+    border: 1px solid #d3d3d3;
+  }
+}
+
+// TODO : header scss files
+.grid__header {
+  color: #4183C4;
+  background-color: #f6f7f8;
+  background-image: linear-gradient(#ffffff,#efefef);
+  @extend .hand-pointer;
+}
+
+.grid__header-cell {
+  padding: 10px 5px;
+  text-align: center;
+  font-weight: 800;
+}
+
+.grid__header-cell--trait {
+  width: 100px;
+}
+
+.grid__cell--trait {
+  text-align: center;
+  vertical-align: middle;
+}

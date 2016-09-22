@@ -1,4 +1,7 @@
 import React from 'react';
+import "../../style/02-Components/user/_add-user.scss";
+
+// import UserDataManager from './data/UserDataManager'
 
 class AddUserPanel extends React.Component {
   constructor(props) {
@@ -6,6 +9,8 @@ class AddUserPanel extends React.Component {
     this.handleButtonClick = this.handleButtonClick.bind(this);
   }
 
+  //TODO : clear existing data on reset
+  // TODO : Add error is name is empty
   handleButtonClick(event) {
     const person = {
       name: this.personName.value,
@@ -19,21 +24,20 @@ class AddUserPanel extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="add-user">
         <h2>Add new person</h2>
         <form>
-          <div>
+          <div className="add-user__data">
             <input ref={(ref) => this.personName = ref} type="text" placeholder="Name"/>
-            <input ref={(ref) => this.superTrait = ref} type="checkbox"/> Super
+            <input ref={(ref) => this.superTrait = ref} type="checkbox"/> Super Power
             <input ref={(ref) => this.geniusTrait = ref} type="checkbox"/> Genius
             <input ref={(ref) => this.richTrait = ref} type="checkbox"/> Rich
-            <button onClick={this.handleButtonClick}>Add</button>
+            <button className="add-user__button" onClick={this.handleButtonClick}>Add</button>
           </div>
         </form>
       </div>
     );
   }
 }
-
 
 export default AddUserPanel;
