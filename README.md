@@ -7,6 +7,9 @@ A simple application to manage a user's data set. It enables us to :-
 * Filter users based on traits
 * Have a side bar to display the data
 
+## Build
+
+
 ## Architecture Decisions
 #### SPA Library
 
@@ -43,3 +46,5 @@ and is going to be present in webpack 2.0
 * I have written couple of basic tests as sample, needs to be more thorough and integeration tests needs to be addedcls
 * UX Enchantments like choosing better colour palette and accessibility related enhancements needs to be present
 * React prop types validation or use typescript
+* Responsive Design
+* Better build, with same webpack files for prod and test and html which is automatically generated
