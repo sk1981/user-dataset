@@ -7,11 +7,23 @@ A simple application to manage a user's data set. It enables us to :-
 * Filter users based on traits
 * Have a side bar to display the data
 
-## Build
+## Running
+* Built files are present in dist folder and the html present can be used directly
+* watch: npm run watch
+* build: npm run build
+* test: npm run test
 
+## Browers
+* Supports all evergreen browsers (chrome, firefox, ie edge, opera, safari)
+* Supports IE10 and above
+* Degrades gracefully on IE9
 
 ## Architecture Decisions
 #### SPA Library
+* Choice between  angular 2, aurelia, reactjs
+* Angular 2.0 just released, so wanted to wait till it's more tested
+* Aurelia is good and I have used it but I am not am more familiar with react
+* Hence decided to user Reactjs
 
 #### CSS Preprocessor
 * Decision between SASS, PostCSS and Less
