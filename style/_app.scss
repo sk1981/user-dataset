@@ -1,6 +1,7 @@
 @import '00-Settings/variables';
 .app {
   display: flex;
+  min-width: 450px;
   @media screen and (max-width: $breakpoint){
     flex-wrap: wrap;
     padding: 10px;
