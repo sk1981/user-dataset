@@ -12,11 +12,7 @@
 }
 
 
-.grid__cell--trait {
+.grid__cell--trait, .grid__cell--delete {
   text-align: center;
   vertical-align: middle;
-}
-
-.grid-footer__filter {
-  color: $link-color;
 }

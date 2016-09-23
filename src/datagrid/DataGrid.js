@@ -84,6 +84,7 @@ class DataGrid extends React.Component {
   render() {
     const {sortField, sortIndicator, filterTrait, newItem, items} = this.props;
     const finalItems = filterTrait ? items.filter((item) => item[filterTrait] === true) : items;
+    // See if the newest item is hidden or not
     const isNewItemHidden = newItem && finalItems.filter((item) => item.id === newItem.id).length === 0;
     return (
       <div>
@@ -94,7 +95,7 @@ class DataGrid extends React.Component {
           {this.getGridRows(finalItems)}
           </tbody>
         </table>
-        <DataGridFooter newItem={newItem} isNewItemHidden={isNewItemHidden} filterTrait={filterTrait}/>
+        <DataGridFooter items={items} newItem={newItem} isNewItemHidden={isNewItemHidden} filterTrait={filterTrait}/>
       </div>
     );
   }

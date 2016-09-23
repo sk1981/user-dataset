@@ -79,18 +79,29 @@ const UserDataPage = React.createClass({
     });
   },
 
+  componentWillReceiveProps(nextProps) {
+    //If change in filtering update
+    if(this.props.trait !== nextProps.trait) {
+      UserDataService.fetchUsers().then((users) => {
+        this.props.updateUsers(users);
+      });
+    }
+  },
+
   render() {
     const filterTrait = this.props.trait;
+    const hasUsers = this.props.users.length > 0;
     return (
       <div>
         <AddUserPanel updateUserList={this.updateUserList}/>
         <ErrorPanel cancelMessage={this.toggleErrorMessage} errorMessage={this.state.errorMessage} />
-        <SortableDataGrid clickedDataId={this.state.clickedDataId}
+        {hasUsers? (<SortableDataGrid clickedDataId={this.state.clickedDataId}
                           updateItem={this.updateUserTrait}
                           filterTrait={filterTrait}
                           newItem={this.props.newUser}
                           deleteItem={this.deleteUser}
-                          items={this.props.users}/>
+                          items={this.props.users}/>):
+                    undefined}
       </div>
     );
   }

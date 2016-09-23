@@ -1,7 +1,6 @@
 import React from 'react';
 import "../../style/03-Components/user/_add-user.scss";
-
-// import UserDataManager from './data/UserDataManager'
+import UserDataManager from './data/UserDataManager'
 
 class AddUserPanel extends React.Component {
   constructor(props) {
@@ -11,21 +10,28 @@ class AddUserPanel extends React.Component {
 
   reset() {
     this.personName.value = '';
-    this.superTrait.checked = false;
-    this.geniusTrait.checked = false;
-    this.richTrait.checked = false;
+    UserDataManager.getTraits().map(trait=> {
+      this[trait.type].checked = false;
+    });
   }
 
   handleButtonClick(event) {
     const person = {
-      name: this.personName.value,
-      superPower: this.superTrait.checked,
-      genius: this.geniusTrait.checked,
-      rich: this.richTrait.checked
+      name: this.personName.value
     };
+    // now attach trait data
+    UserDataManager.getTraits().map(trait=> {
+      person[trait.type] = this[trait.type].checked;
+    });
     this.props.updateUserList(person);
     this.reset();
     event.preventDefault();
+  }
+
+  renderTraitInputs() {
+    return UserDataManager.getTraits().map(trait => {
+      return <label className="input-trait__label"><input ref={(ref) => this[trait.type] = ref} type="checkbox"/> {trait.display}</label>
+    });
   }
 
   render() {
@@ -35,9 +41,7 @@ class AddUserPanel extends React.Component {
         <form>
           <div className="add-user__data">
             <input ref={(ref) => this.personName = ref} type="text" placeholder="Name"/>
-            <input ref={(ref) => this.superTrait = ref} type="checkbox"/> Super Power
-            <input ref={(ref) => this.geniusTrait = ref} type="checkbox"/> Genius
-            <input ref={(ref) => this.richTrait = ref} type="checkbox"/> Rich
+            {this.renderTraitInputs()}
             <button className="add-user__button" onClick={this.handleButtonClick}>Add</button>
           </div>
         </form>

@@ -32,9 +32,14 @@ and is going to be present in webpack 2.0
 * Went with webpack for it's bigger community support and
  ease of using features like bundle splitting and creating object graph
 
- #### Testing
+#### Data Storage
+* Storing data locally
+* Using local forage to store the data so that it used index db firs tand then local storage
+* Benefit of index db is that it is non blocking
 
-## Design
 
 ## Future Enhancements
-* Integrate with error and analytics service
+* Integrate with error and analytics service to capture any issues
+* I have written couple of basic tests as sample, needs to be more thorough and integeration tests needs to be addedcls
+* UX Enchantments like choosing better colour palette and accessibility related enhancements needs to be present
+* React prop types validation or use typescript

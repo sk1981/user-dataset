@@ -8,6 +8,12 @@ module.exports = {
   entry: {
     "user-data": ['./src/index']
   },
+  externals: {
+    'cheerio': 'window',
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
+  },
   output: {
     path: path.join(__dirname, 'dist'),
     filename: '[name].js'
@@ -36,21 +42,10 @@ module.exports = {
   postcss: [
     autoprefixer({browsers: ['last 3 versions']})
   ],
-  eslint: {
-    failOnWarning: false,
-    failOnError: true,
-    configFile: '.eslintrc'
-  },
   plugins: [
     new ExtractTextPlugin("[name].css"),
     new webpack.ProvidePlugin({
       localforage: 'localforage'
-    }),
-    //TO use prod version of react
-    new webpack.DefinePlugin({
-      'process.env':{
-        'NODE_ENV': JSON.stringify('production')
-      }
     })
   ]
 };

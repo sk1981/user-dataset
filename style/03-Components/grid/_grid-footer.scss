@@ -9,3 +9,13 @@
     border-left: 1px solid black; // separator for footer filters
   }
 }
+
+
+.grid-footer__filter--active {
+  color: $link-color;
+}
+
+.hidden-user {
+  color: #c37707;
+  padding: 5px;
+}

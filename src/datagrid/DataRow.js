@@ -84,7 +84,7 @@ class DataRow extends React.Component {
       <tr className="grid__row">
         <td className="grid__cell grid__cell--name">{name}</td>
         {this.getTraitCells(this.props.item)}
-        <td ref={(ref) => {this.deleteCell = ref}} data-id={`delete-${id}`} className="grid__cell grid__cell--trait grid__cell--delete">{this.getDeleteInfo()}</td>
+        <td ref={(ref) => {this.deleteCell = ref}} data-id={`delete-${id}`} className="grid__cell grid__cell--delete">{this.getDeleteInfo()}</td>
       </tr>
     );
   }

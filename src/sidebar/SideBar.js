@@ -12,19 +12,31 @@ function getTraitCountData(users) {
   return (
     <ul className="sidebar__trait-list">
       {UserDataService.getTraits().map(trait => {
-        return <li key={trait.type} className="sidebar__trait-item">{trait.display}: {traitCountMap[trait.type] || 0}</li>
+        const traitCount = traitCountMap[trait.type] || 0;
+
+        return (
+          <li key={trait.type} className="sidebar__trait-item">{trait.display}:
+            {traitCount == 0 ? <span>{traitCount}</span>: <a href={`#/traits/${trait.type}`}>{traitCount}</a>}
+          </li>)
       })}
     </ul>
   )
 }
-
+/**
+ * Sidebar for the page
+ *
+ * @param props
+ * @returns {XML}
+ * @constructor
+ */
 const SideBar = function (props) {
   const totalUsers = props.users.length;
+
   return (
     <div className="sidebar">
       <h2>Side Bar</h2>
       <h3>{`Total Person${totalUsers > 1? 's': ''}: ${totalUsers}`}</h3>
-      {getTraitCountData(props.users)}
+      {totalUsers === 0 ? undefined: getTraitCountData(props.users)}
     </div>
   );
 };
