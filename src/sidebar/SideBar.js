@@ -31,11 +31,12 @@ function getTraitCountData(users) {
  */
 const SideBar = function (props) {
   const totalUsers = props.users.length;
-
+  // Link to full page if users are > 0
+  const totalPersonCount = totalUsers === 0 ? totalUsers: <a href="#">{totalUsers}</a>
   return (
     <div className="sidebar">
       <h2>Side Bar</h2>
-      <h3>{`Total Person${totalUsers > 1? 's': ''}: ${totalUsers}`}</h3>
+      <h3>{`Total Person${totalUsers > 1? 's': ''}: `}{totalPersonCount}</h3>
       {totalUsers === 0 ? undefined: getTraitCountData(props.users)}
     </div>
   );

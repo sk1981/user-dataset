@@ -11,6 +11,7 @@ class App extends React.Component {
   }
 
   updateUsers(users, newUser) {
+    users = users || [];
     this.setState({
       users,
       newUser

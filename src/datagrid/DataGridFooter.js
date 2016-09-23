@@ -43,7 +43,7 @@ class DataGridFooter extends React.Component {
 
   render() {
     const traitCountMap = UserDataService.getTraitCount(this.props.items);
-    const allItemsFiltered = traitCountMap[this.props.filterTrait] === undefined;
+    const allItemsFiltered = this.props.filterTrait && traitCountMap[this.props.filterTrait] === undefined;
 
     return (
       <footer className="grid-footer">
