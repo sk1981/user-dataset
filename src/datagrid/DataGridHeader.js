@@ -14,7 +14,7 @@ function getNameHeader(sortField, sortIndicator, handleHeaderClick) {
   return (
     <td  data-name={fieldName}
          onClick={handleHeaderClick}
-         className="grid__header-cell" >
+         className="grid__header-cell grid__header-cell--sortable" >
       Name {fieldName === sortField ? sortIndicator: ''}
     </td>
   )
@@ -30,7 +30,7 @@ function getNameHeader(sortField, sortIndicator, handleHeaderClick) {
  */
 function getTraitHeader(sortField, sortIndicator, handleHeaderClick) {
   return UserDataManager.getTraits().map(trait => {
-    return (<td className="grid__header-cell grid__header-cell--trait"
+    return (<td className="grid__header-cell grid__header-cell--trait grid__header-cell--sortable"
                 key={trait.type}
                 onClick={handleHeaderClick}
                 data-name={trait.type}>
@@ -53,7 +53,7 @@ const DataGridHeader = (props) => {
     <tr className="grid__header">
       {getNameHeader(sortField, sortIndicator, handleHeaderClick)}
       {getTraitHeader(sortField, sortIndicator, handleHeaderClick)}
-      <td className="grid__header-cell grid__header-cell--trait">Delete</td>
+      <td className="grid__header-cell">Delete</td>
     </tr>
     </thead>
   );

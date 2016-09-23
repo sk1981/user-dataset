@@ -7,14 +7,23 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {users: []};
-    this.updateUsers = (users) => this.setState({users});
+    this.updateUsers = this.updateUsers.bind(this);
   }
 
+  updateUsers(users, newUser) {
+    this.setState({
+      users,
+      newUser
+    });
+  }
+
+
   render() {
+    const {newUser, users} = this.state;
     return (
       <div className="app">
-        <Content users={this.state.users} updateUsers={this.updateUsers}/>
-        <SideBar users={this.state.users} />
+        <Content newUser={newUser} users={users} updateUsers={this.updateUsers}/>
+        <SideBar users={users} />
       </div>
     )
   }

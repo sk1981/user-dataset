@@ -25,11 +25,18 @@ class DataGridFooter extends React.Component {
     });
   }
 
+  getHiddenMessage() {
+    if(this.props.isNewItemHidden === true) {
+      return <div className="hidden-user">&#9888;{`Warning: Newly added user ${this.props.newItem.name} is hidden, please clear the filters to view him`}</div>;
+    }
+  }
+
 
   render() {
     return (
       <footer className="grid-footer">
         {this.getFooterFilters()}
+        {this.getHiddenMessage()}
       </footer>
     );
   }

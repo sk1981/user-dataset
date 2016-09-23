@@ -54,7 +54,8 @@ const UserDataPage = React.createClass({
     } else {
       this.toggleErrorMessage();
       UserDataService.addUser(newUser).then((users)=> {
-        this.props.updateUsers(users);
+        // Pass users and last user
+        this.props.updateUsers(users, users[users.length -1]);
       }, this.handleServiceError);
     }
   },
@@ -87,6 +88,7 @@ const UserDataPage = React.createClass({
         <SortableDataGrid clickedDataId={this.state.clickedDataId}
                           updateItem={this.updateUserTrait}
                           filterTrait={filterTrait}
+                          newItem={this.props.newUser}
                           deleteItem={this.deleteUser}
                           items={this.props.users}/>
       </div>

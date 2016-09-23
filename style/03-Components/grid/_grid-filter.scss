@@ -6,7 +6,6 @@
 .grid-footer__filter {
   padding: 0 10px;
   & + .grid-footer__filter {
-    //TODO : change color
     border-left: 1px solid black; // separator for footer filters
   }
 }

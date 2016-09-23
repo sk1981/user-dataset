@@ -1,3 +1,18 @@
-@import "base";
+@import "../../00-Settings/variables";
+@import "grid-header";
 @import "grid-filter";
 @import "grid-cell";
+// Provides the base styles for our grid component
+.grid {
+  width: 100%;
+  margin-top: 50px;
+  table-layout: fixed;
+
+  & td {
+    border: 1px solid $grid-cell-border;
+  }
+}
+
+.grid__row:nth-child(even) {
+   background-color: $grid-cell-dark-bg;
+}

@@ -1,8 +1,22 @@
 .cell__delete-option {
-  color: #4183C4;
+  color: $link-color;
   @extend .hand-pointer;
+}
+
+.grid__cell--name {
+  padding-left: 10px;
 }
 
 .grid__cell--delete {
   font-size: 14px;
+}
+
+
+.grid__cell--trait {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.grid-footer__filter {
+  color: $link-color;
 }

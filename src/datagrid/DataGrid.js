@@ -37,15 +37,17 @@ class DataGrid extends React.Component {
     let clickedDeleteCell = -1;
     this.props.items.forEach((item) => {
       const childRow = this[`row-${item.id}`];
-      const deleteCell = childRow.deleteCell;
-      // As long as click is not inside, cancel the delete confirmation
-      if(!deleteCell.contains(target)) {
-        // Not ideal that we are calling properties/methods on children,
-        // but definitely the cleanest approach
-        childRow.handleDeleteCancellation();
+      if (childRow != undefined) {
+        const deleteCell = childRow.deleteCell;
+        // As long as click is not inside, cancel the delete confirmation
+        if (!deleteCell.contains(target)) {
+          // Not ideal that we are calling properties/methods on children,
+          // but definitely the cleanest approach
+          childRow.handleDeleteCancellation();
+        }
       }
     });
-    if(clickedDeleteCell !== -1) {
+    if (clickedDeleteCell !== -1) {
       this.setState({clickedDeleteCell});
     }
   }
@@ -80,18 +82,19 @@ class DataGrid extends React.Component {
   }
 
   render() {
-    const {sortField, sortIndicator, filterTrait, items} = this.props;
-    const finalItems = filterTrait ? items.filter((item) => item[filterTrait] === true): items;
-
+    const {sortField, sortIndicator, filterTrait, newItem, items} = this.props;
+    const finalItems = filterTrait ? items.filter((item) => item[filterTrait] === true) : items;
+    const isNewItemHidden = newItem && finalItems.filter((item) => item.id === newItem.id).length === 0;
     return (
       <div>
         <table className="grid">
-          <DataGridHeader handleHeaderClick={this.handleHeaderClick} sortField={sortField} sortIndicator={sortIndicator}/>
+          <DataGridHeader handleHeaderClick={this.handleHeaderClick} sortField={sortField}
+                          sortIndicator={sortIndicator}/>
           <tbody>
           {this.getGridRows(finalItems)}
           </tbody>
         </table>
-        <DataGridFooter filterTrait={filterTrait}/>
+        <DataGridFooter newItem={newItem} isNewItemHidden={isNewItemHidden} filterTrait={filterTrait}/>
       </div>
     );
   }
